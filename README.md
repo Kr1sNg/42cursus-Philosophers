@@ -1,2 +1,2 @@
 # 42cursus-Philosophers
-42's project on concurrent programming, multi-threading and multiprocessing.
+42's project on concurrent programming, multi-threading and multiprocessing, on solving [the Dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem).
