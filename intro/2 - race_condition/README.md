@@ -6,6 +6,9 @@ A race condition occurs when a program depends on the timing of one or more even
 
 A race condition typically occurs when multiple threads access a shared variable (or state) and they try to change it at the same time.
 
+Race conditions are an intra-process thing, not inter-processes. It means there is no race condition between processes.
+
+
 //  Visualization of the above program's execution.  When the two deposit 
 //  functions run at the same time, the execution of statements over time
 //  may interleave (and our simulated "network delay" further assures this),
