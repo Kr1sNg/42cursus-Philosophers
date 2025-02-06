@@ -57,6 +57,17 @@ The bonus implementation increases the complexity by using processes and semapho
 
 - **Concurrency management** is crucial, as improper synchronization could lead to deadlocks.
 
+- Must-have arguments:
+	- `number_of_philosophers`: The number of philos and also the number of forks.
+
+	- `time_to_die` (in milliseconds): If a philo couldn't start eating `time_to_die` milliseconds since the beginning of his last meal (or the simulation), he dies.
+
+	- `time_to_eat` (in milliseconds): The time it takes for each philo to eat. During this time, he holds two forks.
+
+	- `time_to_sleep` (in milliseconds): The time a philo spends to sleep.
+	
+	- `number_of_time_each_philosopher_must_eat` (optional): If all philos have eaten at least `number_of_time_each_philosopher_must_eat` times, the simulation stops. If not specified, the simulation stops when there is one philo who dies.
+
 
 ## II - Functions
 
