@@ -62,56 +62,63 @@ The bonus implementation increases the complexity by using processes and semapho
 
 ### 1 - Threads and Mutexes
 
-- `memset`, `printf`, `malloc`, `free`, `write`
+These function are available in `pthread.h` library.
 
-- `usleep()`: suspend execution of the calling thread for atleast *usec* microsecond. Return `0` on success and `-1` on error. (`<unistd.h>`)
-
-- `gettimeofday()`: get the time as well as the timezone. Return `0` on success and `-1` on failure (`<sys/time.h>`)
-
-- `<pthread.h>`:
-
-	- `pthread_create()`: start a new thread in the calling process
+- `pthread_create()`: start a new thread in the calling process
 	```c
 	int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine) (void *), void *arg);
 	```
 	Return `0` on success and an error number on error.
 
-	- `pthread_join()`: waits for the thread specified by `thread` to terminate. If that thread has already terminated, then `pthread_join()` returns immediately.
+- `pthread_join()`: waits for the thread specified by `thread` to terminate. If that thread has already terminated, then `pthread_join()` returns immediately.
 
 	```c
 	int pthread_join(pthread_t thread, void **retval);
 	```
 	Return `0` on success and an error number on error.
 
-	- `pthread_detach()`: marks the thread identified by `thread` as detached. When a detached thread terminates, its resources are automatically released back to the system  without the need for another thread to join with the terminated thread.
+- `pthread_detach()`: marks the thread identified by `thread` as detached. When a detached thread terminates, its resources are automatically released back to the system without the need for another thread to join with the terminated thread.
 	```c
 	int pthread_detach(pthrad_t thread);
 	```
 	Return `0` on success and an error number on error.
 
-	- `pthread_mutex_init()`: initializes the mutex referenced by `mutex` with attributes specified by `attr`.
+- `pthread_mutex_init()`: initializes the mutex referenced by `mutex` with attributes specified by `attr`.
 	```c
 	int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);
 	```
 	Return `0` on success.
 
-	- `pthread_mutex_destroy()`: destroy the mutex object referenced by `mutex`. The mutex object becomes uninitialized and it can be reinitialized by using `pthread_mutex_init()`. It shall be safe to destroy an initialized mutex that is *unlocked*.
+- `pthread_mutex_destroy()`: destroy the mutex object referenced by `mutex`. The mutex object becomes uninitialized and it can be reinitialized by using `pthread_mutex_init()`. It shall be safe to destroy an initialized mutex that is *unlocked*.
 	```c
 	int pthread_mutex_destroy(pthread_mutex_t *mutex);
 	```
 	Return `0` on success.
 
-	- `pthread_mutex_lock()`: the mutex object referenced by `mutex` shall be locked by a call to `thread_mutex_lock()` that return `0` or `[EOWNERDEAD]`. If the mutex is already locked by another thread, the calling thread shall block until the mutex becomes available. This operation shall return with the mutex object referenced by `mutex` in the locked state with the calling thread as its owners.
+- `pthread_mutex_lock()`: the mutex object referenced by `mutex` shall be locked by a call to `thread_mutex_lock()` that return `0` or `[EOWNERDEAD]`. If the mutex is already locked by another thread, the calling thread shall block until the mutex becomes available. This operation shall return with the mutex object referenced by `mutex` in the locked state with the calling thread as its owners.
 	```c
 	int pthread_mutex_lock(pthread_mutex_t *mutex);
 	```
 	Return `0` on success.
 
-	- `pthread_mutex_unlock()`: releases the mutex object referenced by `mutex`.
+- `pthread_mutex_unlock()`: releases the mutex object referenced by `mutex`.
 	```c
 	int pthread_mutex_unlock(pthread_mutex_t *mutex);
 	```
 	Return `0` on success.
+
+
+### 2 - Processes and Semaphores
+
+
+
+### 3 - Other functions
+
+- `usleep()`: suspend execution of the calling thread for atleast *usec* microsecond. Return `0` on success and `-1` on error.
+
+- `gettimeofday()`: get the time as well as the timezone. Return `0` on success and `-1` on failure (`<sys/time.h>`)
+
+- `memset`, `printf`, `malloc`, `free`, `write`
 
 
 ## III - Pseudocode
