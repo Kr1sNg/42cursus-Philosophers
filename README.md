@@ -93,6 +93,8 @@ These function are available in `pthread.h` library.
 	int pthread_detach(pthrad_t thread);
 	```
 	Return `0` on success and an error number on error.
+	
+	`pthread_detach()` and `pthread_join()` are two sides of the same coin, both aiding in the proper management of thread resources but with distinct approaches. While `pthread_join()` involves **waiting** for the thread, **retrieving** its results, and then **cleaning up**, `pthread_detach()` sets the thread to **automatically clean up** after itself once it's done.
 
 - `pthread_mutex_init()`: initializes the mutex referenced by `mutex` with attributes specified by `attr`.
 	```c
@@ -134,7 +136,7 @@ These function are available in `pthread.h` library.
 
 ## III - Pseudocode
 
-
+### 1 - Mandatory part
  
 
 

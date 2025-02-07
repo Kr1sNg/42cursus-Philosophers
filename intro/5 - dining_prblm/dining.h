@@ -33,6 +33,19 @@
 #endif // COLORS_H
 
 
+/* Enum */
+
+typedef enum e_opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}			t_opcode;
+
 
 /*structure*/
 
@@ -81,6 +94,11 @@ void	error_exit(const char *error);
 
 /* Parsing */
 void parse_input(t_table *table, char **av);
+
+/* Safe */
+void *safe_malloc(size_t bytes);
+void safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+void safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
 
 
 #endif
