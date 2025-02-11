@@ -1,3 +1,6 @@
+// 1:39:13 dinner.c
+
+
 #ifndef DINING_H
 # define DINING_H
 
@@ -32,6 +35,8 @@
 # define W		"\033[1;37m" /* Bold White */
 #endif // COLORS_H
 
+/* write */
+# define DEBUG_MODE 1
 
 /* Enum */
 
@@ -45,6 +50,28 @@ typedef enum e_opcode
 	JOIN,
 	DETACH,
 }			t_opcode;
+
+
+/* Enum for get time */
+typedef enum e_time_code
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND,
+}			t_time_code;
+
+
+/* Enum for philo states */
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	TAKE_FIRST_FORK,
+	TAKE_SECOND_FORK,
+	DIED,
+}		t_status;
+
 
 
 /*structure*/
@@ -68,9 +95,10 @@ typedef struct s_philo
 	long		meals_counter;
 	bool		is_enough_meals;
 	long		last_meal_time; //the time passed from last meal
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
 	pthread_t	thread_id;
+	t_mtx		philo_mutex;
 	t_table		*table;
 }	t_philo;
 
@@ -85,12 +113,19 @@ struct s_table
 	long	nbr_limit_meals; // flag if -1 like there's no arg
 	long	start_simulation;
 	bool	end_simulation;
+	bool	all_threads_ready;
+	long	threads_running_nbr;
+	pthread_t monitor;
+	t_mtx	table_mutex;
+	t_mtx	write_mutex;
 	t_fork	*fork;
 	t_philo	*philos;
 };
 
 /* Utils */
 void	error_exit(const char *error);
+long gettime(t_time_code time_code);
+void	precise_usleep(long usec, t_table *table);
 
 /* Parsing */
 void parse_input(t_table *table, char **av);
@@ -99,6 +134,26 @@ void parse_input(t_table *table, char **av);
 void *safe_malloc(size_t bytes);
 void safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
 void safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
+
+
+/* Init */
+void	data_init(t_table *table);
+
+/* getter - setter */
+void set_bool(t_mtx *mutex, bool *dest, bool value);
+bool get_bool(t_mtx *mutex, bool *value);
+void set_long(t_mtx *mutex, long *dest, long value);
+long get_long(t_mtx *mutex, long *value);
+bool simulation_finished(t_table *table);
+
+/* syncho utils */
+void wait_all_threads(t_table *table);
+
+/* write */
+void write_status(t_status status, t_philo *philo, bool debug);
+
+/* dinner */
+void dinner_start(t_table *table);
 
 
 #endif

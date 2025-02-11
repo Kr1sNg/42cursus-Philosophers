@@ -13,7 +13,7 @@ int	main(int ac, char **av)
 		// 3. dinner
 		dinner_start(&table);
 		// 4. check leaks -> when all reach the limit dinners or one died
-		clean(&table);
+		//clean(&table);
 	}
 	else
 		error_exit("Wrong input!\n"
