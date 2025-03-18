@@ -26,7 +26,14 @@
 ** :::::::::::::::::::::::::::* STRUCT DECLARATION *::::::::::::::::::::::::: **
 */
 
-
+typedef struct s_philo
+{
+	int	philos;
+	int time_to_die;
+	int time_to_eat;
+	int time_to_sleep;
+	int eating_times;
+}
 
 
 /*
