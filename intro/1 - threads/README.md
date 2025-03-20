@@ -7,7 +7,12 @@ A thread is a single sequence stream within a process. Because threads have some
 
 ## What are the differences between process and thread?
 
-Threads are not independent from each other unlike processes. A thread shares with other their code section, data section and OS resources like open files and signals. But, like processes, a thread has its own program counter, a register set, and a stack space.
+- Process:
+	- Can have multiple threads
+	- When using fork(), duplicates everything, it means a variable (such as 'i') is just copied, if we modify the variable (such as 'i' in child process) in one process it won't affect in the other one (the 'i' in parent doesn't change)
+- Threads:
+	- Share memory space, if we declare a variable somewhere, and modify it inside of a thread, it will be changed for every other threads too.
+	- can easily have 'memory race'
 
 ## Why Multithreading?
 

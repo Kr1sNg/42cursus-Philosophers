@@ -137,8 +137,11 @@ These function are available in `pthread.h` library.
 ## III - Pseudocode
 
 ### 1 - Mandatory part
- 
 
+
+
+
+### 2 - Bonus part
 
 
 
