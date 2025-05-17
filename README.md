@@ -56,6 +56,7 @@ The bonus implementation increases the complexity by using processes and semapho
 - **Thread safety** must be maintained to avoid race conditions and inconsistencies.
 
 - **Concurrency management** is crucial, as improper synchronization could lead to deadlocks.
+	A **deadlock** is a situation in which each thread waits for a resource held by another thread or a locked mutex.
 
 - Must-have arguments:
 	- `number_of_philosophers`: The number of philos and also the number of forks.
@@ -123,7 +124,7 @@ These function are available in `pthread.h` library.
 
 ### 2 - Processes and Semaphores
 
-
+Semaphore is 
 
 ### 3 - Other functions
 

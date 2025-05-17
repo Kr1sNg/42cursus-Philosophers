@@ -12,46 +12,35 @@
 
 #include "../include/philo.h"
 
-long	ft_atol(char *s)
+int ft_simu_init(int ac, char **av, t_simu *simu)
 {
-	int		i;
-	long	nb;
-	int		sign;
-	
-	i = 0;
-	nb = 0;
-	sign = 1;
-	while (s[i] == ' ' || s[i] == '	')
-		i++;
-	if (s[i] == '-')
+	int	i;
+
+	i = 1;
+	while (i < ac)
 	{
-		sign = -1;
-		i++;
+		if (ft_atol(av[i]) > 0 && ft_atol(av[i]) <= INT_MAX)
+			i++;
+		else
+			return (printf("Invalid integer arguments!\n"), -42);
 	}
-	else if (s[i] == '+')
-		i++;
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		nb = nb * 10 + (s[i] - '0');
-		i++;
-	}
-	return (nb * sign);
+	simu->num_philos = ft_atol(av[1]);
+	simu->time_to_die = ft_atol(av[2]);
+	simu->time_to_eat = ft_atol(av[3]);
+	simu->time_to_sleep = ft_atol(av[4]);
+	if (ac == 6)
+		simu->max_meals = ft_atol(av[5]);
+	else
+		simu->max_meals = -1;
+	simu->stop = 0;
+	simu->start_time = get_time_ms();
+	return (0);
 }
 
-/* 1 millisecond = 1/1000 second (tv_sec) = 1000 microsecond (tv_usec)
-*/
-long	get_time_ms(void)
+t_philo	ft_philo_init(t_simu *simu)
 {
-	struct timeval	tv;
-	
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);	
-}
+	t_philo philos;
 
-void	print_status(t_philo *philo, char *status)
-{
-	pthread_mutex_lock(&philo->simu->log_mutex);
-	if (!philo->simu->stop)
-		printf("%ld %d %s\n", get_time_ms() - philo->simu->start_time, philo->id, status);
-	pthread_mutex_unlock(&philo->simu->log_mutex);
+	simu->forks = malloc(sizeof(pthread_mutex_t) * simu->num_philos);
+	
 }

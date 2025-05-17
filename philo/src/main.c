@@ -14,12 +14,19 @@
 
 int	main(int ac, char **av)
 {
-	t_philo	philos;
-	
+	t_simu	simu;
+	t_philo	*philos;
+
 	if (ac != 5 && ac != 6)
 		return (printf(USAGE));
-	if (ft_philo_init(ac, av, &philos) != 0)
+	if (ft_simu_init(ac, av, &simu) != 0)
 		return (-42);
+
+	simu.forks = malloc(sizeof(pthread_mutex_t) * simu.num_philos);
+	philos = malloc(sizeof(t_philo) * simu.num_philos);
+	pthread_mutex_init(&simu.log_mutex, NULL);
+	while 
+	
 	
 }
 

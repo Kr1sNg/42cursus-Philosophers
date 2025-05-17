@@ -10,9 +10,3 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/philo.h"
-
-int	ft_parsing(t_table, char **av)
-{
-		ft_parsing(table, av)
-}

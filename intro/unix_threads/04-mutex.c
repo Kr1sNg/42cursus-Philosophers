@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 	pthread_t	t2;
 	pthread_t	t3;
 	pthread_t	t4;
+	// => pthread_t t[4];
 
 	pthread_mutex_init(&mutex, NULL);
 	if (pthread_create(&t1, NULL, routine, NULL) != 0)
