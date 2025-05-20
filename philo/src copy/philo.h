@@ -42,29 +42,23 @@ typedef struct s_philo
 	int			eating; // ?
 	int			meals_eaten;
 	long		last_meal;
-
-	
-	int 	time_to_die;	// time_to_die
-	int 	time_to_eat;	// time_to_eat
-	int 	time_to_sleep;	// time_to_sleep
-	long	start_time;
-
-	int		num_philos;		// number_of_philos
-	int 	max_meals;		// number_of_times_each_philo_must_eat (-1 if not specified)
-	int			*dead;
-
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
-	
+	int			*dead;
 }	t_philo;
 
 // structure of the simulation
 typedef struct s_simu
 {
+	int		num_philos;		// number_of_philos
+	int 	time_to_die;	// time_to_die
+	int 	time_to_eat;	// time_to_eat
+	int 	time_to_sleep;	// time_to_sleep
+	int 	max_meals;		// number_of_times_each_philo_must_eat (-1 if not specified)
 	bool	stop;	// dead_flag	// Flag to indicate if simulation should stop (0 = continue, 1 = stop)
 	t_philo			*philos; // pointer to an array of t_philo structure
 	
@@ -73,7 +67,7 @@ typedef struct s_simu
 	// pthread_mutex_t	stop_mutex; // protect the stop flag
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	dead_lock;
-	
+	long	start_time;
 }	t_simu;
 
 
@@ -88,12 +82,7 @@ long	get_time_ms(void);
 void	print_status(t_philo *philo, char *status);
 
 /* init */
-int ft_args_check(int ac, char **av);
-
-void	ft_philo_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char **av);
-void	ft_forks_init(pthread_mutex_t *forks, int num_philos);
-
-void 	ft_simu_init(t_simu *simu, t_philo *philos);
+int 	ft_simu_init(int ac, char **av, t_simu *simu);
 
 /* main */
 

@@ -131,6 +131,18 @@ Semaphore is
 - `usleep()`: suspend execution of the calling thread for atleast *usec* microsecond. Return `0` on success and `-1` on error.
 
 - `gettimeofday()`: get the time as well as the timezone. Return `0` on success and `-1` on failure (`<sys/time.h>`)
+	The `timeval` structure gives the time exact in second and microsecond after the epoch time Jan 1, 1970
+	```c
+	struct timeval
+	{
+		time_t		tv_sec; // in seconds
+		suseconds_t tv_usec; // in microseconds
+	}
+	```
+	To calculate the given time in milliseconds we use the formula:
+	```math
+	tv_sec * 1000 + tv_usec / 1000
+	```
 
 - `memset`, `printf`, `malloc`, `free`, `write`
 
