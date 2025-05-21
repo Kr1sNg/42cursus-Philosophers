@@ -51,7 +51,7 @@ typedef struct s_philo
 
 	int		num_philos;		// number_of_philos
 	int 	max_meals;		// number_of_times_each_philo_must_eat (-1 if not specified)
-	int			*dead;
+	int			*dead;		
 
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -65,7 +65,7 @@ typedef struct s_philo
 // structure of the simulation
 typedef struct s_simu
 {
-	bool	stop;	// dead_flag	// Flag to indicate if simulation should stop (0 = continue, 1 = stop)
+	bool	dead_flag;	// dead_flag	// Flag to indicate if simulation should stop (0 = continue, 1 = stop)
 	t_philo			*philos; // pointer to an array of t_philo structure
 	
 	//pthread_mutex_t	*forks;

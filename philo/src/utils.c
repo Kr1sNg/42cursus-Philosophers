@@ -56,12 +56,3 @@ long	ft_atol(char *s)
 }
 
 
-void	print_status(t_philo *philo, char *status)
-{
-	pthread_mutex_lock(&philo->simu->log_mutex);
-	if (!philo->simu->stop)
-		printf("%ld %d %s\n", get_time_ms() - philo->simu->start_time, philo->id, status);
-	pthread_mutex_unlock(&philo->simu->log_mutex);
-}
-
-
