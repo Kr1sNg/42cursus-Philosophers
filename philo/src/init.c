@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/03/18 14:42:37 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:46:51 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_forks_init(pthread_mutex_t *forks, int num_philos)
 		pthread_mutex_init(&forks[i], NULL);
 		i++;
 	}
-	return (NULL);
 }
 
 static void	ft_data_init(t_philo *philos, char **av)
@@ -64,7 +63,7 @@ static void	ft_data_init(t_philo *philos, char **av)
 		philos->max_meals = -1;
 }
 
-void	ft_philo_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char **av)
+void	ft_philos_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char **av)
 {
 	int	i;
 
@@ -72,7 +71,7 @@ void	ft_philo_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char *
 	while (i < ft_atol(av[1]))
 	{
 		philos[i].id = i + 1;
-		philos[i].eating = 0;
+		philos[i].is_eating = false;
 		philos[i].meals_eaten = 0;
 		ft_data_init(&philos[i], av);
 		philos[i].start_time = get_time_ms();
@@ -80,9 +79,9 @@ void	ft_philo_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char *
 		philos[i].write_lock = &simu->write_lock;
 		philos[i].dead_lock = &simu->dead_lock;
 		philos[i].meal_lock = &simu->meal_lock;
-		philos[i].dead = &simu->stop; // dead_flag
+		philos[i].stop = &simu->stop; // dead_flag
 		philos[i].left_fork = &forks[i];
-		if (i = 0)
+		if (i == 0)
 			philos[i].right_fork = &forks[philos[i].num_philos - 1];
 		else
 			philos[i].right_fork = &forks[i - 1];
@@ -93,7 +92,7 @@ void	ft_philo_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char *
 // initializing the simulation
 void	ft_simu_init(t_simu *simu, t_philo *philos)
 {
-	simu->stop = 0;
+	simu->stop = false;
 	simu->philos = philos;
 	pthread_mutex_init(&simu->write_lock, NULL);
 	pthread_mutex_init(&simu->dead_lock, NULL);

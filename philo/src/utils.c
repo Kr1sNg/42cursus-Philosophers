@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/03/18 14:42:37 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:57:04 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ long	ft_atol(char *s)
 	return (nb * sign);
 }
 
-
+void	print_status(t_philo *philos, int id, char *status) // need ID !?
+{
+	pthread_mutex_lock(philos->write_lock);
+	if (!stop_check_loop(philos))
+		printf("%ld %d %s\n", get_time_ms() - philos->start_time, id, status);
+	pthread_mutex_unlock(philos->write_lock);
+}

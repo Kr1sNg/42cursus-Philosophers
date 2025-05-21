@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   times.c                                            :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/21 11:18:56 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:12:14 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-/* 1 millisecond = 1/1000 second (tv_sec) = 1000 microsecond (tv_usec)
-*/
-long	get_time_ms(void)
+void	ft_clean_all(char *message, t_simu *simu, pthread_mutex_t *forks)
 {
-	struct timeval	tv;
-	
-	if (gettimeofday(&tv, NULL) == -1)
-		printf("gettimeofday() error\n");
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);	
-}
+	int	i;
 
-int	ft_usleep(int ms)
-{
-	int	start;
-
-	start = get_time_ms();
-	while (get_time_ms() - start < ms)
-		usleep(500);
-	return (0);
+	i = 0;
+	if (message)
+		printf("%s\n", message);
+	pthread_mutex_destroy(&simu->write_lock);
+	pthread_mutex_destroy(&simu->meal_lock);
+	pthread_mutex_destroy(&simu->dead_lock);
+	while (i < simu->philos->num_philos)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
 }
