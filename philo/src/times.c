@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/21 11:18:56 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:07:26 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 /* 1 millisecond = 1/1000 second (tv_sec) = 1000 microsecond (tv_usec)
 */
-long	get_time_ms(void)
+size_t	get_time_ms(void)
 {
 	struct timeval	tv;
-	
+
 	if (gettimeofday(&tv, NULL) == -1)
 		printf("gettimeofday() error\n");
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);	
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-int	ft_usleep(int ms)
+int	ft_usleep(size_t ms)
 {
-	int	start;
+	size_t	start;
 
 	start = get_time_ms();
 	while (get_time_ms() - start < ms)

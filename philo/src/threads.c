@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/21 19:56:35 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:02:51 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,24 @@ bool	stop_check_loop(t_philo *philo)
 // create the threads
 int	ft_thread_create(t_simu *simu, pthread_mutex_t *forks)
 {
-	pthread_t	table;
-	int			i;
+	int	i;
 
-	if (pthread_create(&table, NULL, &monitor, simu->philos))
+	if (pthread_create(&simu->table, NULL, monitor, simu->philos) != 0)
 		ft_clean_all("Error of thread creation", simu, forks);
 	i = 0;
-	while (i < simu->philos->num_philos)
+	while (i < simu->philos[0].num_philos)
 	{
-		if (pthread_create(&simu->philos[i].thread, NULL, &ft_routine, &simu->philos[i]))
+		if (pthread_create(&simu->philos[i].thread, NULL, ft_routine,
+				&simu->philos[i]) != 0)
 			ft_clean_all("Error of thread creation", simu, forks);
 		i++;
 	}
 	i = 0;
-	if (pthread_join(table, NULL))
+	if (pthread_join(simu->table, NULL) != 0)
 		ft_clean_all("Error of thread join", simu, forks);
-	while (i < simu->philos->num_philos)
+	while (i < simu->philos[0].num_philos)
 	{
-		if (pthread_join(simu->philos[i].thread, NULL))
+		if (pthread_join(simu->philos[i].thread, NULL) != 0)
 			ft_clean_all("Error of thread join", simu, forks);
 		i++;
 	}

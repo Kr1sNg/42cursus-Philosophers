@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/21 19:57:04 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:07:50 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	ft_isdigits(char *s)
 	while (s[i])
 	{
 		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == ' ' || s[i] == '	'
-			|| s[i] == '-' || s[i] == '+'))
+				|| s[i] == '-' || s[i] == '+'))
 			return (false);
 		i++;
 	}
@@ -32,7 +32,7 @@ long	ft_atol(char *s)
 	int		i;
 	long	nb;
 	int		sign;
-	
+
 	if (!ft_isdigits(s))
 		return (-42);
 	i = 0;
@@ -55,10 +55,10 @@ long	ft_atol(char *s)
 	return (nb * sign);
 }
 
-void	print_status(t_philo *philos, int id, char *status) // need ID !?
+void	print_status(t_philo *philo, int id, char *status)
 {
-	pthread_mutex_lock(philos->write_lock);
-	if (!stop_check_loop(philos))
-		printf("%ld %d %s\n", get_time_ms() - philos->start_time, id, status);
-	pthread_mutex_unlock(philos->write_lock);
+	pthread_mutex_lock(philo->write_lock);
+	if (!stop_check_loop(philo))
+		printf("%ld %d %s\n", get_time_ms() - philo->start_time, id, status);
+	pthread_mutex_unlock(philo->write_lock);
 }

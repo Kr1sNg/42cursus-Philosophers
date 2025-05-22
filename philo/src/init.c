@@ -6,14 +6,14 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/21 19:46:51 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:56:30 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
 // check the data
-int ft_args_check(int ac, char **av)
+int	ft_args_check(int ac, char **av)
 {
 	int	i;
 
@@ -24,18 +24,8 @@ int ft_args_check(int ac, char **av)
 			&& ft_atol(av[i]) > 0 && ft_atol(av[i]) <= INT_MAX)
 			i++;
 		else
-			return (printf("Invalid integer arguments!\n"), -42);
+			return (printf("Invalid arguments!\n"), -42);
 	}
-	// simu->num_philos = ft_atol(av[1]);
-	// simu->time_to_die = ft_atol(av[2]);
-	// simu->time_to_eat = ft_atol(av[3]);
-	// simu->time_to_sleep = ft_atol(av[4]);
-	// if (ac == 6)
-	// 	simu->max_meals = ft_atol(av[5]);
-	// else
-	// 	simu->max_meals = -1;
-	// simu->stop = 0;
-	// simu->start_time = get_time_ms();
 	return (0);
 }
 
@@ -52,18 +42,20 @@ void	ft_forks_init(pthread_mutex_t *forks, int num_philos)
 	}
 }
 
-static void	ft_data_init(t_philo *philos, char **av)
+static void	ft_data_init(t_philo *philo, char **av)
 {
-	philos->time_to_die = ft_atol(av[2]);
-	philos->time_to_eat = ft_atol(av[3]);
-	philos->time_to_sleep = ft_atol(av[4]);
-	if (av[5])
-		philos->max_meals = ft_atol(av[5]);
+	philo->num_philos = ft_atol(av[1]);
+	philo->time_to_die = ft_atol(av[2]);
+	philo->time_to_eat = ft_atol(av[3]);
+	philo->time_to_sleep = ft_atol(av[4]);
+	if (av[5] != NULL)
+		philo->max_meals = ft_atol(av[5]);
 	else
-		philos->max_meals = -1;
+		philo->max_meals = -1;
 }
 
-void	ft_philos_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char **av)
+void	ft_philos_init(t_philo *philos, t_simu *simu,
+			pthread_mutex_t *forks, char **av)
 {
 	int	i;
 
@@ -79,7 +71,7 @@ void	ft_philos_init(t_philo *philos, t_simu *simu, pthread_mutex_t *forks, char 
 		philos[i].write_lock = &simu->write_lock;
 		philos[i].dead_lock = &simu->dead_lock;
 		philos[i].meal_lock = &simu->meal_lock;
-		philos[i].stop = &simu->stop; // dead_flag
+		philos[i].stop = &simu->stop;
 		philos[i].left_fork = &forks[i];
 		if (i == 0)
 			philos[i].right_fork = &forks[philos[i].num_philos - 1];
