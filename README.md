@@ -124,7 +124,29 @@ These function are available in `pthread.h` library.
 
 ### 2 - Processes and Semaphores
 
-Semaphore is 
+A semaphore is a mechanism used in multithreaded programs for managing the access to shared resources, such as memory or files, by the threads when multiple tasks or threads are running at the same time. Semaphores are very useful in process synchronization and multithreading.
+When the value of the semaphore is zero, any process that performs a wait operation will be blocked until another process performs a signal operation.
+The basic difference between semaphore and mutex is semaphore can lock/unlock multiple times between multiple threads, while mutex cannot lock/unlock difference threads at once.
+
+These function are available in `semaphore.h` library:
+- `sem_open()`: create a new or open an existing semaphore.
+	```c
+	sem_t	*sem_open()
+
+- `sem_close`:
+
+- `sem_wait()`: lock a semaphore: check value of semaphore `sem`, if that value is greater than 0, decrement it and start executing the next lines. Else, that value is 0, it blocks the process/threads until either it rises above 0 or there's signal interrupts.
+	```c
+	int	sem_wait(sem_t *sem);
+	```
+
+- `sem_post()`: unlock a semaphore: it's increments the semaphore `sem` value.
+	```c
+	int	sem_post(sem_t *sem);
+	```
+
+- `sem_unlink`:
+
 
 ### 3 - Other functions
 
