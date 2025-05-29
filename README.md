@@ -190,4 +190,5 @@ These function are available in `semaphore.h` library:
 
  #### E - Reference
  - [Unix Threads in C](https://www.youtube.com/playlist?list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
+ - [Concurrent programming, with examples](https://begriffs.com/posts/2020-03-23-concurrent-programming.html)
 
