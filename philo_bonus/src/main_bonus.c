@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 11:15:54 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:23:28 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,22 @@ int	main(int ac, char **av)
 		return (printf(USAGE));
 	if (ft_args_check(ac, av))
 		return (-42);
-	ft_simu_init(&simu, philos);
-	ft_forks_init(simu.forks, ft_atol(av[1]));
+	ft_simu_init(&simu, philos, ft_atol(av[1]));
 	ft_philos_init(philos, &simu, av);
-	ft_processes_create(&simu, ft_atol(av[1]));
-	ft_monitor(&simu);
+	int	i;
+
+	i = -1;
+	while (++i < ft_atol(av[1]))
+	{
+		philos[i].pid = fork();
+		if (philos[i].pid == -1)
+			return (printf("error fork()\n"), exit(EXIT_FAILURE), 1);
+		if (philos[i].pid == 0)
+		{
+			philo_process(philos);
+			exit(0);
+		}
+	}
 	ft_clean_all(NULL, &simu);
 	return (0);
 }

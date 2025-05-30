@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 11:16:16 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:15:00 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 // Monitor helps to check in the table if there is a philo who died
 // or if they all ate, then deciding to stop simu
 
-void	ft_monitor(t_simu *simu)
+void	*ft_monitor(void *args)
 {
+	t_philo	*philo;
+
+	philo = (t_philo *)args;
 	while (1)
 	{
-		if (is_dead(simu->philos) || is_enough_meals(simu->philos))
+		if (is_dead(philo) || is_enough_meals(philo))
 			break ;
 	}
+	return (args);
 }
 
 // check if THIS philo is dying of hunger

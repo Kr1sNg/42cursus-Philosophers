@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:21:29 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 11:15:31 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:25:36 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ time_to_sleep [number_of_times_each_philo_must_eat]\n"
 // structure of each philo
 typedef struct s_philo
 {
+	pthread_t		monitor;
 	pid_t			pid;
 	int				id;
 	bool			is_eating; // this philo is eating at the moment
@@ -54,12 +55,14 @@ typedef struct s_philo
 	int				num_philos;		// number_of_philos
 	int				max_meals;	// number_of_times_each_must_eat (-1 if not)
 	bool			*stop;		// this philo is dead or ate enough meals
-	// sem_t	*left_fork;
-	// sem_t	*right_fork;
+	sem_t	*left_fork;
+	sem_t	*right_fork;
 	sem_t	*write_lock;
 	sem_t	*dead_lock;
 	sem_t	*meal_lock;
 	sem_t	*forks;
+	
+	int				fork_in_hand;
 }	t_philo;
 
 // structure of the simulation
@@ -82,12 +85,12 @@ void	ft_clean_all(char *message, t_simu *simu);
 
 // init_bonus
 int		ft_args_check(int ac, char **av);
-void	ft_forks_init(sem_t *forks, int num_philos);
+void	ft_simu_init(t_simu *simu, t_philo *philos, int num_philos);
 void	ft_philos_init(t_philo *philos, t_simu *simu, char **av);
-void	ft_simu_init(t_simu *simu, t_philo *philos);
+
 
 // monitor_bonus
-void	ft_monitor(t_simu *simu);
+void	*ft_monitor(void *args);
 bool	is_dead(t_philo *philos);
 bool	is_enough_meals(t_philo *philos);
 
@@ -95,11 +98,11 @@ bool	is_enough_meals(t_philo *philos);
 void	ft_thinking(t_philo *philo);
 void	ft_sleeping(t_philo *philo);
 void	ft_dining(t_philo *philo);
-void	philo_process(t_simu *simu, int	id);
+void	philo_process(t_philo *philo);
 
 // processes
 bool	stop_check_loop(t_philo *philo);
-int		ft_processes_create(t_simu *simu, int num_philos);
+// int		ft_processes_create(t_simu *simu, int num_philos);
 
 // times
 size_t	get_time_ms(void);

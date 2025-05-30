@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 11:15:01 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:14:02 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 void	ft_clean_all(char *message, t_simu *simu)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	if (message)
 		printf("%s\n", message);
 	while (i < simu->philos[0].num_philos)
 	{
-		kill(simu->philos[i].pid, SIGTERM);
-		waitpid(simu->philos[i].pid, NULL, 0);
+		waitpid(-1, &status, 0);
+		if (status != 0)
+		{
+			i = -1;
+			while (++i < simu->philos[0].num_philos)
+				kill(simu->philos[i].pid, SIGTERM);
+		}
 		i++;
 	}
 	sem_close(simu->forks);

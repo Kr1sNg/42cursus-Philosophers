@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 11:14:25 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:34:20 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ int	ft_args_check(int ac, char **av)
 }
 
 // initializing the forks mutexes
-void	ft_forks_init(sem_t *forks, int num_philos)
-{
-	// int	i;
+// void	ft_forks_init(sem_t *forks, int num_philos)
+// {
+// 	// int	i;
 
-	// i = 0;
-	// while (i < num_philos)
-	// {
-	// 	pthread_mutex_init(&forks[i], NULL);
-	// 	i++;
-	// }
+// 	// i = 0;
+// 	// while (i < num_philos)
+// 	// {
+// 	// 	pthread_mutex_init(&forks[i], NULL);
+// 	// 	i++;
+// 	// }
 
-	sem_unlink("/forks");
-	forks = sem_open("/forks", O_CREAT | O_EXCL, 0644, num_philos);
-	if (forks == SEM_FAILED)
-		return (printf("error: sem_open\n"), exit(EXIT_FAILURE));
-}
+// 	sem_unlink("/forks");
+// 	forks = sem_open("/forks", O_CREAT | O_EXCL, 0644, num_philos);
+// 	if (forks == SEM_FAILED)
+// 		return (printf("error: sem_open\n"), exit(EXIT_FAILURE));
+// }
 
 static void	ft_data_init(t_philo *philo, char **av)
 {
@@ -78,6 +78,7 @@ void	ft_philos_init(t_philo *philos, t_simu *simu, char **av)
 		philos[i].meal_lock = simu->meal_lock;
 		philos[i].stop = &simu->stop;
 		philos[i].forks = simu->forks;
+		philos[i].fork_in_hand = 0;
 		// philos[i].left_fork = &forks[i];
 		// if (i == 0)
 		// 	philos[i].right_fork = &forks[philos[i].num_philos - 1];
@@ -85,10 +86,11 @@ void	ft_philos_init(t_philo *philos, t_simu *simu, char **av)
 		// 	philos[i].right_fork = &forks[i - 1];
 		i++;
 	}
+	printf("philo init\n");
 }
 
 // initializing the simulation
-void	ft_simu_init(t_simu *simu, t_philo *philos)
+void	ft_simu_init(t_simu *simu, t_philo *philos, int num_philos)
 {
 	simu->stop = false;
 	simu->philos = philos;
@@ -104,4 +106,9 @@ void	ft_simu_init(t_simu *simu, t_philo *philos)
 	// pthread_mutex_init(&simu->meal_lock, NULL);
 	sem_unlink("/meal_lock");
 	simu->meal_lock = sem_open("/meal_lock", O_CREAT | O_EXCL, 0644, 1);
+
+	sem_unlink("/forks");
+	simu->forks = sem_open("/forks", O_CREAT | O_EXCL, 0644, num_philos);
+		
+	printf("simu init\n");
 }
