@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   times.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 08:13:37 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 10:13:33 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-int	main(int ac, char **av)
+/* 1 millisecond = 1/1000 second (tv_sec) = 1000 microsecond (tv_usec)
+*/
+size_t	get_time_ms(void)
 {
-	t_simu			simu;
-	t_philo			philos[PHILO_MAX];
-	pthread_mutex_t	forks[PHILO_MAX];
+	struct timeval	tv;
 
-	if (ac != 5 && ac != 6)
-		return (printf(USAGE));
-	if (ft_args_check(ac, av))
-		return (-42);
-	ft_simu_init(&simu, philos);
-	ft_forks_init(forks, ft_atol(av[1]));
-	ft_philos_init(philos, &simu, forks, av);
-	ft_thread_create(&simu, forks);
-	ft_clean_all(NULL, &simu, forks);
+	if (gettimeofday(&tv, NULL) == -1)
+		printf("error: gettimeofday()\n");
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+int	ft_usleep(size_t ms)
+{
+	size_t	start;
+
+	start = get_time_ms();
+	while (get_time_ms() - start < ms)
+		usleep(500);
 	return (0);
 }

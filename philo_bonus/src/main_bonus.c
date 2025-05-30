@@ -1,14 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/02/05 15:37:08 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 11:15:54 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/philo.h"
+#include "../includes/philo_bonus.h"
 
+int	main(int ac, char **av)
+{
+	t_simu			simu;
+	t_philo			philos[PHILO_MAX];
+
+	if (ac != 5 && ac != 6)
+		return (printf(USAGE));
+	if (ft_args_check(ac, av))
+		return (-42);
+	ft_simu_init(&simu, philos);
+	ft_forks_init(simu.forks, ft_atol(av[1]));
+	ft_philos_init(philos, &simu, av);
+	ft_processes_create(&simu, ft_atol(av[1]));
+	ft_monitor(&simu);
+	ft_clean_all(NULL, &simu);
+	return (0);
+}

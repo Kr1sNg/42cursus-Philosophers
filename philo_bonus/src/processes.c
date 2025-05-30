@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 10:48:36 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 10:44:33 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-void	ft_clean_all(char *message, t_simu *simu, pthread_mutex_t *forks)
+// checks if the value of is_dead flag changed
+bool	stop_check_loop(t_philo *philo)
+{
+	sem_wait(philo->dead_lock);
+	if (*philo->stop == true)
+		return (sem_post(philo->dead_lock), true);
+	sem_post(philo->dead_lock);
+	return (false);
+}
+
+// create the processes
+int	ft_processes_create(t_simu *simu, int num_philos)
 {
 	int	i;
 
 	i = 0;
-	if (message)
-		printf("%s\n", message);
-	pthread_mutex_destroy(&simu->write_lock);
-	pthread_mutex_destroy(&simu->meal_lock);
-	pthread_mutex_destroy(&simu->dead_lock);
-	while (i < simu->philos[0].num_philos)
+	while (i < num_philos)
 	{
-		pthread_mutex_destroy(&forks[i]);
+		simu->philos[i].pid = fork();
+		if (simu->philos[i].pid == -1)
+			return (printf("error fork()\n"), exit(EXIT_FAILURE), 1);
+		if (simu->philos[i].pid == 0)
+			philo_process(simu, simu->philos[i].id);
 		i++;
 	}
+	return (0);
 }

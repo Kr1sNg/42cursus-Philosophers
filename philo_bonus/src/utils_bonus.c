@@ -6,11 +6,11 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/29 21:26:44 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 10:27:54 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 static bool	ft_isdigits(char *s)
 {
@@ -57,8 +57,8 @@ long	ft_atol(char *s)
 
 void	print_status(t_philo *philo, int id, char *status)
 {
-	pthread_mutex_lock(philo->write_lock);
+	sem_wait(philo->write_lock);
 	if (!stop_check_loop(philo))
 		printf("%ld %d %s\n", get_time_ms() - philo->start_time, id, status);
-	pthread_mutex_unlock(philo->write_lock);
+	sem_post(philo->write_lock);
 }

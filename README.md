@@ -129,9 +129,12 @@ When the value of the semaphore is zero, any process that performs a wait operat
 The basic difference between semaphore and mutex is semaphore can lock/unlock multiple times between multiple threads, while mutex cannot lock/unlock difference threads at once.
 
 These function are available in `semaphore.h` library:
-- `sem_open()`: create a new or open an existing semaphore.
+
+- `sem_open()`: create a new or open an existing semaphore `name` with the initial `value` of semaphore.
 	```c
-	sem_t	*sem_open()
+	sem_t	*sem_open(char *name, O_CREAT | O_EXCL, 0644, int value);
+	```
+	It returns the address of new semaphore on success, otherwise it returns `SEM_FAILED`.
 
 - `sem_close`:
 
@@ -162,7 +165,7 @@ These function are available in `semaphore.h` library:
 	}
 	```
 	To calculate the given time in milliseconds we use the formula:
-	```math
+	```c
 	tv_sec * 1000 + tv_usec / 1000
 	```
 

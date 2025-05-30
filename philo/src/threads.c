@@ -6,11 +6,11 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/22 12:02:51 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/29 21:26:44 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../includes/philo.h"
 
 // checks if the value of is_dead flag changed
 bool	stop_check_loop(t_philo *philo)

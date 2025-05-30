@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   routine_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/29 21:26:44 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 11:16:36 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 // routine of a philo
 
@@ -27,33 +27,33 @@ void	ft_sleeping(t_philo *philo)
 
 void	ft_dining(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right_fork);
+	sem_wait(philo->forks);
 	print_status(philo, philo->id, "has taken a fork");
 	if (philo->num_philos == 1)
 	{
 		ft_usleep(philo->time_to_die);
-		pthread_mutex_unlock(philo->right_fork);
+		sem_post(philo->forks);
 		return ;
 	}
-	pthread_mutex_lock(philo->left_fork);
+	sem_wait(philo->forks);
 	print_status(philo, philo->id, "has taken a fork");
 	philo->is_eating = true;
 	print_status(philo, philo->id, "is eating");
-	pthread_mutex_lock(philo->meal_lock);
+	sem_wait(philo->meal_lock);
 	philo->last_meal = get_time_ms();
 	philo->meals_eaten++;
-	pthread_mutex_unlock(philo->meal_lock);
+	sem_post(philo->meal_lock);
 	ft_usleep(philo->time_to_eat);
 	philo->is_eating = false;
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	sem_post(philo->forks);
+	sem_post(philo->forks);
 }
 
-void	*ft_routine(void *arg)
+void	philo_process(t_simu *simu, int	id)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)arg;
+	philo = &simu->philos[id];
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
 	while (!stop_check_loop(philo))
@@ -62,5 +62,4 @@ void	*ft_routine(void *arg)
 		ft_sleeping(philo);
 		ft_thinking(philo);
 	}
-	return (arg);
 }

@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 08:13:37 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/30 11:15:01 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-int	main(int ac, char **av)
+void	ft_clean_all(char *message, t_simu *simu)
 {
-	t_simu			simu;
-	t_philo			philos[PHILO_MAX];
-	pthread_mutex_t	forks[PHILO_MAX];
+	int	i;
 
-	if (ac != 5 && ac != 6)
-		return (printf(USAGE));
-	if (ft_args_check(ac, av))
-		return (-42);
-	ft_simu_init(&simu, philos);
-	ft_forks_init(forks, ft_atol(av[1]));
-	ft_philos_init(philos, &simu, forks, av);
-	ft_thread_create(&simu, forks);
-	ft_clean_all(NULL, &simu, forks);
-	return (0);
+	i = 0;
+	if (message)
+		printf("%s\n", message);
+	while (i < simu->philos[0].num_philos)
+	{
+		kill(simu->philos[i].pid, SIGTERM);
+		waitpid(simu->philos[i].pid, NULL, 0);
+		i++;
+	}
+	sem_close(simu->forks);
+	sem_unlink("/forks");
+	sem_close(simu->dead_lock);
+	sem_unlink("/dead_lock");
+	sem_close(simu->write_lock);
+	sem_unlink("/write_lock");
+	sem_close(simu->meal_lock);
+	sem_unlink("/meal_lock");
+	
 }
