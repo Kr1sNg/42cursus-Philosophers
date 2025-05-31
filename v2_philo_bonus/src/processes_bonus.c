@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 12:33:11 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 12:36:19 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	*ft_monitoring(void *args)
 		}
 	}
 	if (philo->died)
-		exit(1);
+		exit(EXIT_FAILURE);
 	else
-		exit(0);
+		exit(EXIT_SUCCESS);
 }
 
 void	ft_daily_process(t_philo *philo)
