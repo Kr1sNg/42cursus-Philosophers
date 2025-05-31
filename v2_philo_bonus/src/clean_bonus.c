@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 12:19:18 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 12:26:15 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_clean_all(t_philo *philo)
 	while (i < philo->num_philos)
 	{
 		waitpid(-1, &status, 0);
-		if (status != 0)
+		if ((WIFEXITED(status) && WEXITSTATUS(status) != 0) || WIFSIGNALED(status))
 		{
 			i = -1;
 			while (++i < philo->num_philos)

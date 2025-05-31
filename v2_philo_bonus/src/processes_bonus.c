@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 12:13:41 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 12:33:11 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	*ft_monitoring(void *args)
 		exit(1);
 	else
 		exit(0);
-	// return (args);
 }
 
 void	ft_daily_process(t_philo *philo)
@@ -76,6 +75,6 @@ void	ft_daily_process(t_philo *philo)
 	}
 
 	if (pthread_join(philo->monitor, NULL))
-		return (printf("error: pthread join\n"), exit(EXIT_FAILURE));
+		print_error("error: thread join");;
 }
 
