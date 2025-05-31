@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   times.c                                            :+:      :+:    :+:   */
+/*   times_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 23:34:20 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/06/01 01:01:19 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int	ft_usleep(size_t ms)
 	return (0);
 }
 
-void ft_msleep(size_t ms, t_philo *philo)
+void	ft_msleep(size_t ms, t_philo *philo)
 {
 	size_t	start;
-	
+
 	start = get_time_ms();
 	while (!get_stop(philo))
-	{	
+	{
 		if (get_time_ms() - start >= ms)
-			break;
+			break ;
 		usleep(500);
 	}
 }

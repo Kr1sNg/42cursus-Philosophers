@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 23:58:46 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/06/01 00:55:55 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_philos_init(int ac, char **av, t_philo *philo)
 	philo->stop = 0;
 	philo->died = 0;
 	philo->start_time = get_time_ms();
-	philo->last_meal = get_time_ms();
 	sem_unlink("/write_lock");
 	philo->write_lock = sem_open("/write_lock", O_CREAT | O_EXCL, 0644, 1);
 	sem_unlink("/stop_lock");
@@ -53,6 +52,24 @@ void	ft_philos_init(int ac, char **av, t_philo *philo)
 	sem_unlink("/forks");
 	philo->forks = sem_open("/forks", O_CREAT | O_EXCL, 0644,
 			philo->num_philos);
-	if (!philo->write_lock || !philo->forks || !philo->stop_lock || !philo->meal_lock)
+	if (!philo->write_lock || !philo->forks || !philo->stop_lock
+		|| !philo->meal_lock)
 		print_error("error: sem_open");
+}
+
+void	set_stop(t_philo *philo, int value)
+{
+	sem_wait(philo->stop_lock);
+	philo->stop = value;
+	sem_post(philo->stop_lock);
+}
+
+int	get_stop(t_philo *philo)
+{
+	int	val;
+
+	sem_wait(philo->stop_lock);
+	val = philo->stop;
+	sem_post(philo->stop_lock);
+	return (val);
 }

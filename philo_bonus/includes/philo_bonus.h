@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:21:29 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 23:48:03 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/06/01 00:57:58 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ time_to_sleep [number_of_times_each_philo_must_eat]\n"
 // structure of each philo
 typedef struct s_philo
 {
-	//from av
 	size_t		time_to_die;	// time_to_die
 	size_t		time_to_eat;	// time_to_eat
 	size_t		time_to_sleep;	// time_to_sleep
@@ -49,19 +48,17 @@ typedef struct s_philo
 	int			max_meals;	// number_of_times_each_must_eat (-1 if not)
 	pthread_t	monitor;
 	pid_t		pid[PHILO_MAX];
-	int			id;
-
+	int			id; // it will change in child, after a fork()
 	int			meals_eaten; // number of meals he's eaten
 	size_t		start_time;
 	size_t		last_meal;	// time from the last meal
 	bool		stop;		// this philo is dead or ate enough meals
 	bool		died;
 	sem_t		*write_lock;
-	sem_t		*forks;
-
 	sem_t		*stop_lock;
 	sem_t		*meal_lock;
-	
+	sem_t		*forks;
+
 }	t_philo;
 
 /*
@@ -70,6 +67,7 @@ typedef struct s_philo
 
 // times
 size_t	get_time_ms(void);
+int		ft_usleep(size_t ms);
 void	ft_msleep(size_t ms, t_philo *philo);
 
 // utils
@@ -79,8 +77,8 @@ void	print_error(char *message);
 
 // init 
 void	ft_philos_init(int ac, char **av, t_philo *philo);
-int		get_stop(t_philo *philo);
 void	set_stop(t_philo *philo, int value);
+int		get_stop(t_philo *philo);
 
 // monitor
 void	*ft_monitoring(void *args);
@@ -89,12 +87,10 @@ void	ft_daily_process(t_philo *philo);
 // clean
 void	ft_clean_all(t_philo *philo);
 
-
-int	ft_usleep(size_t ms);
-
+// set_get
 void	update_last_meal(t_philo *philo);
-void	increment_meals(t_philo *philo);
 size_t	get_last_meal(t_philo *philo);
-int		get_meals_eaten(t_philo *philo);
+void	increment_meals(t_philo *philo);
+int		get_meals(t_philo *philo);
 
 #endif

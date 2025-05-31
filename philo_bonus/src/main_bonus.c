@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 20:20:30 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/06/01 00:39:55 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int ac, char **av)
 		if (philo.pid[i] == 0)
 		{
 			philo.id = i + 1;
+			philo.last_meal = get_time_ms();
 			ft_daily_process(&philo);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 23:58:19 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/06/01 01:01:54 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	print_status(t_philo *philo, char *status)
 {
 	sem_wait(philo->write_lock);
 	if (!get_stop(philo))
-		printf("%ld %d %s\n", get_time_ms() - philo->start_time, philo->id, status);
+		printf("%ld %d %s\n", get_time_ms() - philo->start_time, philo->id,
+			status);
 	sem_post(philo->write_lock);
 }
 

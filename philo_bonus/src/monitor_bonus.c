@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 23:54:56 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/06/01 00:59:48 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,12 @@ void	*ft_monitoring(void *args)
 			printf("%ld %d %s\n", get_time_ms() - philo->start_time, philo->id,
 				"died");
 			set_stop(philo, 1);
-			// philo->stop = 1;
 			break ;
 		}
-
-		if (philo->max_meals != -1 && (get_meals_eaten(philo) >= philo->max_meals))
+		if (philo->max_meals != -1 && (get_meals(philo) >= philo->max_meals))
 		{
 			set_stop(philo, 1);
-			// philo->stop = 1;
-			break;
+			break ;
 		}
 	}
 	if (philo->died)
@@ -56,29 +53,16 @@ void	ft_daily_process(t_philo *philo)
 		print_status(philo, "has taken a fork");
 		sem_wait(philo->forks);
 		print_status(philo, "has taken a fork");
-
 		print_status(philo, "is eating");
-		
 		ft_msleep(philo->time_to_eat, philo);
-
-		
 		sem_post(philo->forks);
 		sem_post(philo->forks);
-		
 		update_last_meal(philo);
 		increment_meals(philo);
-		// philo->last_meal = get_time_ms();
-		
-		// philo->meals_eaten++;
-
-				
 		print_status(philo, "is sleeping");
-		
 		ft_msleep(philo->time_to_sleep, philo);
 		print_status(philo, "is thinking");
 	}
-
 	if (pthread_join(philo->monitor, NULL))
-		print_error("error: thread join");;
+		print_error("error: thread join");
 }
-
