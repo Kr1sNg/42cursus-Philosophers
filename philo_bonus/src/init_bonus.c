@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/31 23:44:36 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 23:58:46 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,4 @@ void	ft_philos_init(int ac, char **av, t_philo *philo)
 			philo->num_philos);
 	if (!philo->write_lock || !philo->forks || !philo->stop_lock || !philo->meal_lock)
 		print_error("error: sem_open");
-}
-
-int	get_stop(t_philo *philo)
-{
-	int	val;
-
-	sem_wait(philo->stop_lock);
-	val = philo->stop;
-	sem_post(philo->stop_lock);
-	return (val);
-}
-
-void	set_stop(t_philo *philo, int value)
-{
-	sem_wait(philo->stop_lock);
-	philo->stop = value;
-	sem_post(philo->stop_lock);
 }
