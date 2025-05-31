@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 16:23:28 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:20:30 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,24 @@
 
 int	main(int ac, char **av)
 {
-	t_simu			simu;
-	t_philo			philos[PHILO_MAX];
+	t_philo	philo;
+	int		i;
 
 	if (ac != 5 && ac != 6)
 		return (printf(USAGE));
-	if (ft_args_check(ac, av))
-		return (-42);
-	ft_simu_init(&simu, philos, ft_atol(av[1]));
-	ft_philos_init(philos, &simu, av);
-	int	i;
-
+	ft_philos_init(ac, av, &philo);
 	i = -1;
-	while (++i < ft_atol(av[1]))
+	while (++i < philo.num_philos)
 	{
-		philos[i].pid = fork();
-		if (philos[i].pid == -1)
-			return (printf("error fork()\n"), exit(EXIT_FAILURE), 1);
-		if (philos[i].pid == 0)
+		philo.pid[i] = fork();
+		if (philo.pid[i] == -1)
+			print_error("error: fork");
+		if (philo.pid[i] == 0)
 		{
-			philo_process(philos);
-			exit(0);
+			philo.id = i + 1;
+			ft_daily_process(&philo);
 		}
 	}
-	ft_clean_all(NULL, &simu);
+	ft_clean_all(&philo);
 	return (0);
 }

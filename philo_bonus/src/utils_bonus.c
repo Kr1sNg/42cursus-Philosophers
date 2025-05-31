@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 10:27:54 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 23:46:54 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,50 @@ long	ft_atol(char *s)
 	return (nb * sign);
 }
 
-void	print_status(t_philo *philo, int id, char *status)
+void	print_status(t_philo *philo, char *status)
 {
 	sem_wait(philo->write_lock);
-	if (!stop_check_loop(philo))
-		printf("%ld %d %s\n", get_time_ms() - philo->start_time, id, status);
+	if (!get_stop(philo))
+		printf("%ld %d %s\n", get_time_ms() - philo->start_time, philo->id, status);
 	sem_post(philo->write_lock);
+}
+
+void	print_error(char *message)
+{
+	printf("%s\n", message);
+	exit(EXIT_FAILURE);
+}
+
+void	update_last_meal(t_philo *philo)
+{
+	sem_wait(philo->meal_lock);
+	philo->last_meal = get_time_ms();
+	sem_post(philo->meal_lock);
+}
+
+void	increment_meals(t_philo *philo)
+{
+	sem_wait(philo->meal_lock);
+	philo->meals_eaten++;
+	sem_post(philo->meal_lock);
+}
+
+size_t	get_last_meal(t_philo *philo)
+{
+	size_t	time;
+
+	sem_wait(philo->meal_lock);
+	time = philo->last_meal;
+	sem_post(philo->meal_lock);
+	return time;
+}
+
+int	get_meals_eaten(t_philo *philo)
+{
+	int	meals;
+
+	sem_wait(philo->meal_lock);
+	meals = philo->meals_eaten;
+	sem_post(philo->meal_lock);
+	return meals;
 }
