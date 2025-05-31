@@ -6,7 +6,7 @@
 #    By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/22 11:14:07 by tat-nguy          #+#    #+#              #
-#    Updated: 2025/05/29 21:25:23 by tat-nguy         ###   ########.fr        #
+#    Updated: 2025/05/30 20:44:16 by tat-nguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJS 	= $(SRC:.c=.o)
 
 # Include and Flags
 INCLUDE = -Iincludes
-CFLAGS 	= -Wall -Wextra -Werror
+CFLAGS 	= -Wall -Wextra -Werror -g
 CC 		= cc
 RM		= rm -rf
 

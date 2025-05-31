@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 10:27:54 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/06/01 01:01:54 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,17 @@ long	ft_atol(char *s)
 	return (nb * sign);
 }
 
-void	print_status(t_philo *philo, int id, char *status)
+void	print_status(t_philo *philo, char *status)
 {
 	sem_wait(philo->write_lock);
-	if (!stop_check_loop(philo))
-		printf("%ld %d %s\n", get_time_ms() - philo->start_time, id, status);
+	if (!get_stop(philo))
+		printf("%ld %d %s\n", get_time_ms() - philo->start_time, philo->id,
+			status);
 	sem_post(philo->write_lock);
+}
+
+void	print_error(char *message)
+{
+	printf("%s\n", message);
+	exit(EXIT_FAILURE);
 }
