@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 13:15:00 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 08:55:36 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	*ft_monitor(void *args)
 		if (is_dead(philo) || is_enough_meals(philo))
 			break ;
 	}
+	if (is_dead(philo))
+		exit(1);
+	else
+		exit(0);
 	return (args);
 }
 

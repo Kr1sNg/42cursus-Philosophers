@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:20:19 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/30 13:39:10 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/31 08:51:42 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	philo_process(t_philo *philo)
 		exit(1);
 	}	
 	if (philo->id % 2 == 0)
-		ft_usleep(1000);
+		ft_usleep(1);
 	while (!stop_check_loop(philo))
 	{
 		ft_dining(philo);
