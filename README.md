@@ -196,7 +196,7 @@ These function are available in `semaphore.h` library:
 
 #### 1. Compile programme
 
-	In the folder `philo`, run one of the command in the Terminal:
+ In the folder `philo`, run one of the command in the Terminal:
 
 	```bash
 	make
@@ -206,7 +206,7 @@ These function are available in `semaphore.h` library:
 
 #### 2. Run programme 
 	
-	Then run the command `./philo` with 4 or 5 arguments.
+ Then run the command `./philo` with 4 or 5 arguments.
 	
 	```bash
 	./philo num_philos time_to_die time_to_eat time_to_sleep max_meals
@@ -214,7 +214,7 @@ These function are available in `semaphore.h` library:
 
 #### 3. Testing the thread error or race condition
 
-	Using `valgrind` - `helgrind`
+ Using `valgrind` - `helgrind`
 
 	```bash
 	valgrind --tool=helgrind ./philo [...]
@@ -224,7 +224,7 @@ These function are available in `semaphore.h` library:
 
 #### 1. Compile programme
 
-	In the folder `philo_bonus`, run one of the command in the Terminal:
+ In the folder `philo_bonus`, run one of the command in the Terminal:
 
 	```bash
 	make
@@ -235,7 +235,7 @@ These function are available in `semaphore.h` library:
 
 #### 2. Run programme 
 	
-	Then run the command `./philo_bonus` with 4 or 5 arguments.
+ Then run the command `./philo_bonus` with 4 or 5 arguments.
 	
 	```bash
 	./philo_bonus num_philos time_to_die time_to_eat time_to_sleep max_meals
@@ -243,7 +243,7 @@ These function are available in `semaphore.h` library:
 
 #### 3. Testing the thread error or race condition
 
-	Using `valgrind` - `helgrind`
+ Using `valgrind` - `helgrind`
 
 	```bash
 	valgrind --tool=helgrind ./philo_bonus [...]
@@ -253,10 +253,11 @@ These function are available in `semaphore.h` library:
 
 ## IV - Issues and Bugs 🐛
 
-Please feel free to create a new issue with the title and description on the issues page of this `42cursus-Philosophers` repository.
-If you have already found the solution to the problem, we would love to review your `pull request`!
+ Please feel free to create a new issue with the title and description on the issues page of this `42cursus-Philosophers` repository.
+ 
+ If you have already found the solution to the problem, we would love to review your `pull request`!
 
-Thank you in advance and Happy coding!
+ Thank you in advance and Happy coding!
 
 ---
 
