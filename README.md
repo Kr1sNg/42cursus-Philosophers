@@ -198,27 +198,27 @@ These function are available in `semaphore.h` library:
 
  In the folder `philo`, run one of the command in the Terminal:
 
-	```bash
-	make
-	make re
-	make all
-	```
+```bash
+make
+make re
+make all
+```
 
 #### 2. Run programme 
 	
  Then run the command `./philo` with 4 or 5 arguments.
 	
-	```bash
-	./philo num_philos time_to_die time_to_eat time_to_sleep max_meals
-	```
+```bash
+./philo num_philos time_to_die time_to_eat time_to_sleep max_meals
+```
 
 #### 3. Testing the thread error or race condition
 
  Using `valgrind` - `helgrind`
 
-	```bash
-	valgrind --tool=helgrind ./philo [...]
-	```
+```bash
+valgrind --tool=helgrind ./philo [...]
+```
 
 ### 2 - Bonus part 🔖
 
@@ -226,28 +226,28 @@ These function are available in `semaphore.h` library:
 
  In the folder `philo_bonus`, run one of the command in the Terminal:
 
-	```bash
-	make
-	make re
-	make all
-	make bonus
-	```
+```bash
+make
+make re
+make all
+make bonus
+```
 
 #### 2. Run programme 
 	
  Then run the command `./philo_bonus` with 4 or 5 arguments.
 	
-	```bash
-	./philo_bonus num_philos time_to_die time_to_eat time_to_sleep max_meals
-	```
+```bash
+./philo_bonus num_philos time_to_die time_to_eat time_to_sleep max_meals
+```
 
 #### 3. Testing the thread error or race condition
 
  Using `valgrind` - `helgrind`
 
-	```bash
-	valgrind --tool=helgrind ./philo_bonus [...]
-	```
+```bash
+valgrind --tool=helgrind ./philo_bonus [...]
+```
 
 ---
 
